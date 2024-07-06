@@ -1,0 +1,20 @@
+## Clone the sample NodeJS app repo
+git clone https://github.com/docker/getting-started-app.git
+cd getting-started-app
+
+## Create a Dockerfile for the app images and dependencies to create docker image
+FROM node:20-alpine
+WORKDIR /app
+COPY . .
+RUN yarn install --production
+CMD ["node", "src/index.js"]
+EXPOSE 3000
+
+## Build the docker image
+docker build -t getting-started .
+
+## After successful image build spine, a container out of the new image
+
+docker run -dp 0.0.0.0:3000:3000 getting-started
+## Try to access the app 
+curl http://<IP of VM >:3000
